@@ -21,6 +21,7 @@ learning the most important features of the form library along the way.
 
 Creating a Simple Form
 ----------------------
+Step1:- database establishment:
 
 Suppose you're building a simple todo list application that will need to
 display "tasks". Because your users will need to edit and create tasks, you're
@@ -68,11 +69,12 @@ its data, and persist it to the database.
 
 Building the Form
 ~~~~~~~~~~~~~~~~~
+step2: the controller part:
 
 Now that you've created a ``Task`` class, the next step is to create and
 render the actual HTML form. In Symfony, this is done by building a form
 object and then rendering it in a template. For now, this can all be done
-from inside a controller::
+from inside a controller and sure we can't forget our route::
 
     // src/AppBundle/Controller/DefaultController.php
     namespace AppBundle\Controller;
@@ -86,6 +88,9 @@ from inside a controller::
 
     class DefaultController extends Controller
     {
+    /**
+     * @Route("task/new", name="new_task")
+     */
         public function newAction(Request $request)
         {
             // create a task and give it some dummy data for this example
@@ -116,6 +121,7 @@ Creating a form requires relatively little code because Symfony form objects
 are built with a "form builder". The form builder's purpose is to allow you
 to write simple form "recipes", and have it do all the heavy-lifting of actually
 building the form.
+step3: the interface:
 
 In this example, you've added two fields to your form - ``task`` and ``dueDate`` -
 corresponding to the ``task`` and ``dueDate`` properties of the ``Task`` class.
@@ -147,6 +153,7 @@ helper functions:
         {# app/Resources/views/default/new.html.twig #}
         {{ form_start(form) }}
         {{ form_widget(form) }}
+          <button type="submit" class="btn btn-primary">Save</button>
         {{ form_end(form) }}
 
     .. code-block:: html+php
